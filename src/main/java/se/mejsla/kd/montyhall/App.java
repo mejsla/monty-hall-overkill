@@ -34,8 +34,11 @@ public class App
 		final int numberOfRuns = command.getNumberOfRuns();
 		final int numberOfDoors = 3;
 		final Simulator simulation = new Simulator(numberOfRuns, numberOfDoors, new Random());
+		final long startTime = System.currentTimeMillis();
 		final int numberOfWinsWithoutSwitch = simulation.withPerseveringBehavior();
 		final int numberOfWinsWithSwitch = simulation.withSwitchingBehavior();
+		final long endTime = System.currentTimeMillis();
+		System.out.println("Total execution time: " + (endTime - startTime) );
 		final Result result = new Result(numberOfWinsWithoutSwitch, numberOfWinsWithSwitch);
 		reporter.reportResult(command, result);
 	}

@@ -1,7 +1,7 @@
 package se.mejsla.kd.montyhall.simulation;
 
 import java.util.Random;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 import se.mejsla.kd.montyhall.domain.*;
 import se.mejsla.kd.montyhall.strategies.*;
@@ -31,13 +31,13 @@ public class Simulator {
 	}
 
 	private int playBatchOfGamesWith(final PickDoorStrategy strategy) {
-		final long numberOfWins = Stream
-		.generate(()-> playSingleGameWith(strategy))
-		.limit(numberOfGames)
-		.filter(prize -> prize == Prize.CAR)
-		.count();
+		final long numberOfWins = IntStream.range(0, numberOfGames)
+				.parallel() // Comment this line to run sequentially
+				.mapToObj(ix ->playSingleGameWith(strategy))
+				.filter(prize -> prize == Prize.CAR)
+				.count();
 		return (int) numberOfWins;
-	
+
 	}
 
 	private Prize playSingleGameWith(final PickDoorStrategy strategy) {

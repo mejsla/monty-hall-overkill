@@ -9,7 +9,7 @@ public class Command {
 	}
 
 	public static class DefaultArgs {
-		public final static int numberOfRuns = 5000;
+		public final static int numberOfRuns = 1_000_000;
 	}
 
 	private int numberOfRuns = 0;

@@ -49,6 +49,8 @@ Vad bör man ta höjd för när det gäller tänkbara kravändringar?
 ## Prestanda
 Implementationen av `ShiftingContestant.reviseChoice` beror mycket av hur många dörrar och hur många möjligheter som finns. Om man säkert vet att det är exakt tre dörrar varav en är vald av `Contestant` och en är öppnad av Host så är det lätt att välja den kvarvarande dörren. Men om det kan vara fler dörrar så behöver man slumpa fram valet, och i så fall påverkas valet av algoritm mycket av hur många dörrar som finns och hur många av dessa som är stängda.
 
+Jag insåg också att denna typ av upprepade simuleringar lämpar sig mycket väl för parallellisering. Efter en mindre (mycket liten) omskrivning räcker det faktiskt att på "klassiskt" Java 8-manér lägga till ett anrop till `parallel()` i klassen `Simulator`. Och när antalet upprepningar blir stort så går det faktiskt snabbare med parallellkörning - och om antalet är litet så spelar prestanda ingen roll. (Den nuvarande lösningen beror dock på det faktum att `Random.nextInt()` är trådsäker även om det riskerar att leda till contention vilket kan drabba prestanda.)
+
 ## DI
 Jag försöker generellt att använda DI (Dependency Injection). Notera att jag gör detta utan att använda något DI-ramverk á la Spring eller Guice. Jag använder DI för att det ska bli ren kod som är lätt att förstå och lätt att enhetstesta.
 
