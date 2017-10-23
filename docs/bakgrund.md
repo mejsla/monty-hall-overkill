@@ -59,9 +59,9 @@ Många av klasserna i programmet kräver en slumpgenerator som därför injicera
 Någon klass måste börja sätta ihop alla bitarna. I det här fallet är det klassen `Simulator`. Det gör att just den klassen blir svår att enhetstesta eftersom den själv skapar en flera instanser istället för att ta emot via injisering. Finns det bättre lösningar?
 
 ## S.O.L.I.D.
-Robert Martin (är det väl?) har myntat SOLID-principerna där D:et står för Dependency Inversion Principle (DIP). Har ni tänkt på hur DIP, IoC (Inversion of Control), DI förhåller sig till varandra?
+Robert Martin (är det väl?) har myntat SOLID-principerna där D:et står för Dependency Inversion Principle (DIP). Har ni tänkt på hur DIP, IoC (Inversion of Control) och DI förhåller sig till varandra?
 
-Hur tycker ni att SOLID står sig allmän? Är det något man ska ha koll på?
+Hur tycker ni att SOLID står sig allmänt? Är det något man ska ha koll på?
 
 Har ni några andra principer som ni brukar följa och/eller förespråka?
 
