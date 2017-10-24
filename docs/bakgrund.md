@@ -120,7 +120,7 @@ Mockning: Jag har valt bort mockningsramverk. Är det numera best practice att h
 Testa slump: Visst kan man mocka med en egen slumptalsgenerator, men hur gör man om det är en implementationsdetalj hur slumptalsgeneratorn används?
 
 ## F.I.R.S.T.
-Jag nämnde SOLID ovan. FIRST är en annan uppsättning principer från Bob Martin. Jag har aldrig lärt mig de ordentligt och jag håller bara med om dem delvis. Vad tycker ni? Vilka andra bra test-principer finns det att rekommendera?
+Jag nämnde SOLID ovan. FIRST är en annan uppsättning principer från Bob Martin. Jag har aldrig lärt mig dem ordentligt och jag håller bara med om dem delvis. Vad tycker ni? Vilka andra bra test-principer finns det att rekommendera?
 
 ## JavaDoc
 Ska man använda JavaDoc-kommentarer? Jag har valt att bara använda vanliga kommentarer (/\* istället för /\*\*) eftersom programmet 
