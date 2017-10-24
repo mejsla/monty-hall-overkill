@@ -49,16 +49,16 @@ Vad bör man ta höjd för när det gäller tänkbara kravändringar?
 ## Prestanda
 Implementationen av `ShiftingContestant.reviseChoice` beror mycket av hur många dörrar och hur många möjligheter som finns. Om man säkert vet att det är exakt tre dörrar varav en är vald av `Contestant` och en är öppnad av Host så är det lätt att välja den kvarvarande dörren. Men om det kan vara fler dörrar så behöver man slumpa fram valet, och i så fall påverkas valet av algoritm mycket av hur många dörrar som finns och hur många av dessa som är stängda.
 
-Jag insåg också att denna typ av upprepade simuleringar lämpar sig mycket väl för parallellisering. Efter en mindre (mycket liten) omskrivning räcker det faktiskt att på "klassiskt" Java 8-manér lägga till ett anrop till `parallel()` i klassen `Simulator`. Och när antalet upprepningar blir stort så går det faktiskt snabbare med parallellkörning - och om antalet är litet så spelar prestanda ingen roll. (Den nuvarande lösningen beror dock på det faktum att `Random.nextInt()` är trådsäker även om det riskerar att leda till contention vilket kan drabba prestanda.)
+Jag insåg också att denna typ av upprepade simuleringar lämpar sig mycket väl för parallellisering. Efter en mindre (mycket liten) omskrivning räckte det faktiskt med att på "klassiskt" Java 8-manér lägga till ett anrop till `parallel()` i klassen `Simulator`. Och när antalet upprepningar blir stort så går det faktiskt snabbare med parallellkörning - och om antalet är litet så spelar prestanda ingen roll. Den lösningen funkar tack vare att `Random.nextInt()` är trådsäker och att det inte finns något annat delat tillstånd mellan trådarna. Det finns dock varningar för att man kan råka ut för prestandaförsämringar på grund av contention om man använder samma `Random`-instans i flera trådar samtidigt. Därför lade jag till den lokala klassen `App.ThreadLocalRandomProxy`. Tack vare att jag kodat med DI så var det lätt att skicka runt en sådan instans istället för en instans av `Random`. (Däremot ledde denna ändring inte till någon märkbar prestandaförbättring.)
 
 ## DI
 Jag försöker generellt att använda DI (Dependency Injection). Notera att jag gör detta utan att använda något DI-ramverk á la Spring eller Guice. Jag använder DI för att det ska bli ren kod som är lätt att förstå och lätt att enhetstesta.
 
-Många av klasserna i programmet kräver en slumpgenerator som därför injiceras i ett antal konstruktorer. Ett alternativ vore att ha en applikationsglobal singleton-factory där alla som behöver kan hämta slumpgeneratorn. För- och nackdelar?
+Många av klasserna i programmet kräver en slumpgenerator som därför injiceras i ett antal konstruktorer. Ett alternativ vore att ha en applikationsglobal singleton-factory där alla som behöver kan hämta slumpgeneratorn. För- och nackdelar? (Ja, detta skrev jag innan jag lade till klassen `App.ThreadLocalRandomProxy`.)
 
 `Stage`-klassen genererar själv sina dörrar utifrån argumenten i konstruktorn istället för DI. För- och nackdelar?
 
-Någon klass måste börja sätta ihop alla bitarna. I det här fallet är det klassen `Simulator`. Det gör att just den klassen blir svår att enhetstesta eftersom den själv skapar en flera instanser istället för att ta emot via injisering. Finns det bättre lösningar?
+Någon klass måste börja sätta ihop alla bitarna. I det här fallet är det klassen `Simulator`. Det gör att just den klassen blir svår att enhetstesta eftersom den själv skapar flera instanser istället för att ta emot via injisering. Finns det bättre lösningar?
 
 ## S.O.L.I.D.
 Robert Martin (är det väl?) har myntat SOLID-principerna där D:et står för Dependency Inversion Principle (DIP). Har ni tänkt på hur DIP, IoC (Inversion of Control) och DI förhåller sig till varandra?
