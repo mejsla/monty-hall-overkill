@@ -128,7 +128,7 @@ Ska man använda JavaDoc-kommentarer? Jag har valt att bara använda vanliga kom
 
 Hur noggrant ska man kommentera??
 
-Om man använder JavaDoc, hur mycket ska man använda Javadoc-features som t.ex. `@link`? (Jag använder iblan taggar som `@return` och `@param`. Synpunkter?)?
+Om man använder JavaDoc, hur mycket ska man använda Javadoc-features som t.ex. `@link`? (Jag använder ibland taggar som `@return` och `@param`. Synpunkter?)?
 Hur hantera risken med att kommentarer hamnar i osynk med koden? I vilken utsträckning kan man få verktygshjälp med att hålla i synk??
 
 ## Projektdokumentation
