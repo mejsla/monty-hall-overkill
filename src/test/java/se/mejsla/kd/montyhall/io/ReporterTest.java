@@ -27,7 +27,7 @@ public class ReporterTest {
 		final String outString = new String(out.toByteArray(), StandardCharsets.UTF_8);
 		final String errString = new String(err.toByteArray(), StandardCharsets.UTF_8);
 		
-		final Pattern outPattern = Pattern.compile(".*\\s3\\s.*.*\\s10\\s.*.*\\s30\\.0 %.+\\s6\\s.*\\s10\\s.*.*\\s60\\.0 %.+");
+		final Pattern outPattern = Pattern.compile(".*\\s3\\s.*.*\\s10\\s.*.*\\s30[,\\.]0 %.+\\s6\\s.*\\s10\\s.*.*\\s60[,\\.]0 %.+");
 		assertTrue(outPattern.matcher(outString.replace('\n', '_')).find());
 		assertTrue(errString.isEmpty());
 	}
